@@ -1,5 +1,7 @@
 #include"Sequence table.h"
 #include<iostream>
+#include<fstream>//文件流
+#include<string>
 using namespace std;
 int main()
 {
@@ -27,4 +29,11 @@ int main()
 	book2 = { "10002","python",35 };
 	ChangeElem(booklist, book2);
 	ShowAll(booklist);
+	//也可以使用这种方式从文件里面读取
+	string ISBN, NAME;
+	int price;
+	fstream file;
+	file.open("message.txt");
+	file >> ISBN >> NAME >> price;//能提取int类型，嗯~ o(*￣▽￣*)o不错
+	cout << ISBN << " " << NAME << " " << price << endl;
 }
