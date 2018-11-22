@@ -4,35 +4,35 @@
 using namespace std;
 struct DoubNode
 {
-	DoubNode* prior;//Ç°Ö¸Õë
+	DoubNode* prior;//å‰æŒ‡é’ˆ
 	string name;
-	DoubNode* next;//ºóÖ¸Õë
+	DoubNode* next;//åæŒ‡é’ˆ
 };
-//ÒòÎªÊÇË«ÏòÁ´±í£¬ËùÒÔ¼ÓÈëÍ·Î²Ö¸Õë¸ü·½±ã
+//å› ä¸ºæ˜¯åŒå‘é“¾è¡¨ï¼Œæ‰€ä»¥åŠ å…¥å¤´å°¾æŒ‡é’ˆæ›´æ–¹ä¾¿
 typedef DoubNode* DoubHeadNode;
 typedef DoubNode* DoubRearNode;
-//Ë«ÏòÑ­»·Á´±í:´ÓÑ­»·Á´±íÖĞµÄÈÎÒâÒ»¸ö½ÚµãÎ»ÖÃ¶¼¿ÉÒÔÕÒµ½ÆäËû½Úµã
-
+//åŒå‘å¾ªç¯é“¾è¡¨:ä»å¾ªç¯é“¾è¡¨ä¸­çš„ä»»æ„ä¸€ä¸ªèŠ‚ç‚¹ä½ç½®éƒ½å¯ä»¥æ‰¾åˆ°å…¶ä»–èŠ‚ç‚¹
+//å¦‚æœå…ˆæ±‚é•¿åº¦éå†å¤ªéº»çƒ¦ä¹Ÿå¯ä»¥è®¾ç½®ä¸€ä¸ªå…¨å±€å˜é‡ int lenght=0;åœ¨æ’å…¥èŠ‚ç‚¹å’Œåˆ é™¤èŠ‚ç‚¹çš„æ—¶å€™å¯¹lenghtè¿›è¡Œæ“ä½œ
 /*
-Ç°Ö¸ÕëpriorÖ¸ÏòÇ°Ò»¸ö½Úµã£¬ºóÖ¸ÕënextÖ¸ÏòºóÒ»¸ö½Úµã
-Òª¿¼ÂÇÓĞ½ÚµãµÄÇé¿öºÍÎŞ½ÚµãµÄÇé¿ö£º1ÓĞ½ÚµãµÄÇé¿öÊÇËÄ¸öÁ´½Ó2.ÎŞ½Úµã¶îÇé¿öÊÇÈı¸öÁ´½Ó
-ÔÚÖ¸¶¨Î»ÖÃ²åÈëÊ±Òª¿¼ÂÇÁ´½ÓË³Ğò
+å‰æŒ‡é’ˆprioræŒ‡å‘å‰ä¸€ä¸ªèŠ‚ç‚¹ï¼ŒåæŒ‡é’ˆnextæŒ‡å‘åä¸€ä¸ªèŠ‚ç‚¹
+è¦è€ƒè™‘æœ‰èŠ‚ç‚¹çš„æƒ…å†µå’Œæ— èŠ‚ç‚¹çš„æƒ…å†µï¼š1æœ‰èŠ‚ç‚¹çš„æƒ…å†µæ˜¯å››ä¸ªé“¾æ¥2.æ— èŠ‚ç‚¹é¢æƒ…å†µæ˜¯ä¸‰ä¸ªé“¾æ¥
+åœ¨æŒ‡å®šä½ç½®æ’å…¥æ—¶è¦è€ƒè™‘é“¾æ¥é¡ºåº
 */
-//·ÇÑ­»·Ë«ÏòÁ´±í£¬ÎŞÍ·½ÚµãÄ£Ê½
+//éå¾ªç¯åŒå‘é“¾è¡¨ï¼Œæ— å¤´èŠ‚ç‚¹æ¨¡å¼
 
-//´´½¨Ò»¸öĞÂ½Úµã
+//åˆ›å»ºä¸€ä¸ªæ–°èŠ‚ç‚¹
 DoubNode* CreatNewNode(const string& str);
-//Í·²¿²åÈë½Úµã
+//å¤´éƒ¨æ’å…¥èŠ‚ç‚¹
 void InsertHead(DoubHeadNode& head, DoubRearNode& rear,const string& str);
-//Î²²¿²åÈëÒ»¸ö½Úµã
+//å°¾éƒ¨æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹
 void InsertRear(DoubHeadNode& head, DoubRearNode& rear, const string& str);
-//Ö¸¶¨Î»ÖÃ²åÈë
-void InsertPos(DoubHeadNode& head, int pos, const string& str);//Ïà¶ÔÓÚÍ·Ö¸ÕëµÄÎ»ÖÃ
-//Ö¸¶¨Î»ÖÃÉ¾³ı
-void DelPos(DoubHeadNode& head, int pos);//Ïà¶ÔÓÚÍ·Ö¸ÕëµÄÎ»ÖÃ
-//²éÕÒÖ¸¶¨Î»ÖÃµÄ½ÚµãĞÅÏ¢
+//æŒ‡å®šä½ç½®æ’å…¥
+void InsertPos(DoubHeadNode& head, int pos, const string& str);//ç›¸å¯¹äºå¤´æŒ‡é’ˆçš„ä½ç½®
+//æŒ‡å®šä½ç½®åˆ é™¤
+void DelPos(DoubHeadNode& head, int pos);//ç›¸å¯¹äºå¤´æŒ‡é’ˆçš„ä½ç½®
+//æŸ¥æ‰¾æŒ‡å®šä½ç½®çš„èŠ‚ç‚¹ä¿¡æ¯
 void FindDoubList(DoubHeadNode& head, int pos);
-//¸Ä±äÖ¸¶¨Î»ÖÃµÄ½ÚµãĞÅÏ¢
+//æ”¹å˜æŒ‡å®šä½ç½®çš„èŠ‚ç‚¹ä¿¡æ¯
 void ChangeNode(DoubHeadNode& head, int pos,const string& str);
-//ÏÔÊ¾ËùÓĞ½Úµã
+//æ˜¾ç¤ºæ‰€æœ‰èŠ‚ç‚¹
 void ShowAll(DoubHeadNode& head);
