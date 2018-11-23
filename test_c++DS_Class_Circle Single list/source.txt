@@ -1,0 +1,6 @@
+10000  C++primer  75
+10001 Java 50
+10002 Python 55
+10003 Matlab 40
+10004 MFC 40
+10005 Qt 40
