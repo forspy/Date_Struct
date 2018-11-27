@@ -53,3 +53,33 @@ long Fib ( long n )
 }
 
 */
+#include<iostream>
+using namespace std;
+int m = 0;//全局变量m表示移动的步数
+void MoveInfo(int number, char pillar, char other_pillar)
+{
+	cout << "第" << ++m << "步，将编号为" << number << "的圆盘从第" << pillar << "个柱子移动到第" << other_pillar << "个柱子上" << endl;
+}
+void Hanoi(int n, char A, char B, char C)//n个圆盘，ABC三根柱子
+{
+	if (n == 1)
+	{
+		MoveInfo(1, A, C);//将编号为1的圆盘从A移动到C  1，2，3号圆盘从小到大
+	}
+	else
+	{
+		Hanoi(n - 1, A, C, B);//将A上编号为1到n-1号的圆盘从A移动到B，  C作为辅助塔
+		MoveInfo(n, A, C);//输出信息
+		Hanoi(n - 1, B, A, C);//将编号为1到n-1的圆盘从B移到C，A做辅助塔（表示执行完A到B后执行B到C）
+	}
+}
+int main()
+{
+	int n;
+	char a, b, c;
+	a = 'A';
+	b = 'B';
+	c = 'C';
+	n = 3;//圆盘个数
+	Hanoi(n, a, b, c);
+}
