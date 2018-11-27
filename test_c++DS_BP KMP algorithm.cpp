@@ -1,17 +1,22 @@
 #include<stdio.h>
+#include<iostream>
+#include<string>
+using namespace std;
 //实现如果一行中有这个字符串，则输出这行
 int strindex(char source[], char searchfor[]);
 char line[] = "would you please";
 char pattern[] = "you";
-
 
 int main()
 {
 	//printf("%s", line);
 	if (strindex(line, pattern) >= 0)
 	{
-		printf("%s", line);
+		printf("%s\n", line);
 	}
+	//当然使用string类中的find方法也能找到（KMP方法）
+	string a = "would you please";
+	cout << a.find("you") << endl;//返回位置，如果没有查到，返回0
 }
 //一段相当经典的BP算法
 int strindex(char source[], char searchfor[])
