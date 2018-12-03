@@ -84,7 +84,8 @@ public:
 	List() { EmptyInit(); }
 	
 	//迭代器操作
-	Iterator<T> begin() { return head->next; }//头节点的下一个节点（有头节点模式）
+	Iterator<T> begin() { return head->next; }//头节点的下一个节点（有头节点模式） 
+	//（利用了构造函数的隐式转换 比如 A a=10; 其实是A a=A（10）; 这里return的时候会隐式转换,利用Iterator构造函数Iterator(head->next)）
 	Iterator<T> begin()const { return head->next; }//头节点的下一个节点（有头节点模式）
 	Iterator<T> end() { return head; }
 	Iterator<T> end()const { return head; }
