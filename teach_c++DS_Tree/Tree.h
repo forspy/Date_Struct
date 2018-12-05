@@ -25,11 +25,11 @@ class Tree
 private:
 	TreeNode<T>* pRoot;//根节点
 	//通过根节点可以找到所有的节点
-	void clear(TreeNode<T>* root);
+	void clear(TreeNode<T>*& root);
 	TreeNode<T>* find(TreeNode<T>* root, const T& data);
 public:
 	Tree() { pRoot = nullptr; };
-	~Tree() { clear(); };
+	~Tree() { clear(); };//因为析构函数的递归不太好写，所以创建一个clear()方法，用递归
 	//注意因为析构函数传不了参数，所以需要在public写一个无参的clear，在private写一个含参的clear
 	void clear();
 	//查找
@@ -40,9 +40,9 @@ public:
 };
 //重载的clear，含参
 template<typename T>
-inline void Tree<T>::clear(TreeNode<T>* root)
+inline void Tree<T>::clear(TreeNode<T>*& root)//注意传根节点的引用
 {
-	if (root)
+	if (root)//这里就说明了这个判断的重要性，防止析构两次
 	{
 		clear(root->brother);//如果还有兄弟，继续遍历到下一个兄弟
 		clear(root->child);//如果没有兄弟，则遍历兄弟的孩子
