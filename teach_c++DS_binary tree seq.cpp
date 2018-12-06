@@ -44,22 +44,27 @@ class TreeArr
 private:
 	vector<T> vecBuff;//数组，编号从0开始
 public:
-	TreeArr();
+	TreeArr(){ }
+	TreeArr(T arr[], int len);
 	~TreeArr();//析构
 	void clear();//主动析构
 	void Init(T arr[], int len);
 	bool find(const T& findVal);
 	void appendNode(const T& data);
 	//遍历方式
-	void prePrint(int index = 0);//前序遍历，index表示编号（顺序存储特有），不一定从根开始遍历
-	void midPrint(int index = 0);//中序遍历
-	void backPrint(int index = 0);//后序遍历
+	void prePrint(unsigned int index = 0);//前序遍历，index表示编号（顺序存储特有），不一定从根开始遍历
+	void midPrint(unsigned int index = 0);//中序遍历
+	void backPrint(unsigned int index = 0);//后序遍历
 };
-//构造
+//构造,按照顺序存储方式构造
 template<typename T>
-TreeArr<T>::TreeArr()
+TreeArr<T>::TreeArr(T arr[], int len)
 {
-	vecBuff.clear();
+	vecBuff.insert(vecBuff.end(), arr, arr + len);//vector范围插入
+	/*
+	vector _Where在第一元素插入的矢量的位置，_First要复制的元素范围中的第一个元素的位置，
+	_Last要复制的元素范围之外的第一个元素的位置
+	*/
 }
 
 template<typename T>
@@ -75,26 +80,21 @@ void TreeArr<T>::clear()
 }
 
 template<typename T>
-void TreeArr<T>::Init(T arr[], int len)
+void TreeArr<T>::Init(T arr[], int len)//手动init
 {
 	vecBuff.clear();
 	//数组复制到vecbuff里面
 	vecBuff.insert(vecBuff.end(), arr, arr + len);//vector范围插入
-	/*
-	vector _Where在第一元素插入的矢量的位置，_First要复制的元素范围中的第一个元素的位置，_Last要复制的元素范围之外的第一个元素的位置
-	*/
 }
 
 template<typename T>
 bool TreeArr<T>::find(const T & findVal)
 {
-	auto iter = vecBuff.find(vecBuff.begin(), vecBuff.end(), findVal);
-	if (iter == vecBuff.end();)
+	auto iter = std::find(vecBuff.begin(), vecBuff.end(), findVal);//find是std里面的方法
+	if (iter == vecBuff.end())
 		return false;
 	else
-	{
 		return true;
-	}
 }
 
 template<typename T>
@@ -104,7 +104,7 @@ void TreeArr<T>::appendNode(const T & data)
 }
 //先序遍历
 template<typename T>
-void TreeArr<T>::prePrint(int index)//index表示编号
+void TreeArr<T>::prePrint(unsigned int index)//index表示编号
 {
 	if (index < vecBuff.size() && index >= 0)
 	{
@@ -116,7 +116,7 @@ void TreeArr<T>::prePrint(int index)//index表示编号
 }
 
 template<typename T>
-void TreeArr<T>::midPrint(int index)
+void TreeArr<T>::midPrint(unsigned int index)
 {
 	if (index < vecBuff.size() && index >= 0)
 	{
@@ -129,7 +129,7 @@ void TreeArr<T>::midPrint(int index)
 }
 
 template<typename T>
-void TreeArr<T>::backPrint(int index)
+void TreeArr<T>::backPrint(unsigned int index)
 {
 	if (index < vecBuff.size() && index >= 0)
 	{
@@ -145,9 +145,8 @@ int  main()
 {
 	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
 	int nSize = sizeof(arr) / sizeof(arr[0]);
-	TreeArr<int> tree;
-	tree.Init(arr, nSize);
-	//bool b = tree.find(9);
+	TreeArr<int> tree(arr, nSize);
+	bool b = tree.find(9);
 	tree.prePrint();
 	cout << endl;
 	tree.midPrint();
