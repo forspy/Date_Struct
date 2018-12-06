@@ -1,13 +1,13 @@
-//ÍêÈ«¶ş²æÊ÷µÄÁ´Ê½´æ´¢½á¹¹
+//å®Œå…¨äºŒå‰æ ‘çš„é“¾å¼å­˜å‚¨ç»“æ„
 #include<iostream>
 #include<queue>
 using namespace std;
 template<typename T>
 struct TreeNode
 {
-	T data;//Êı¾İÓò
-	TreeNode* lchild;//×ó×Ó½Úµã
-	TreeNode* rchild;//ÓÒ×Ó½Úµã
+	T data;//æ•°æ®åŸŸ
+	TreeNode* lchild;//å·¦å­èŠ‚ç‚¹
+	TreeNode* rchild;//å³å­èŠ‚ç‚¹
 	TreeNode():lchild(nullptr),rchild(nullptr){ }
 };
 
@@ -17,31 +17,31 @@ class BinaryTree
 private:
 	TreeNode<T>* pRoot;
 	void clear(TreeNode<T>*& root);
-	void preprint(TreeNode<T>* root);//ÏÈĞò±éÀú
-	void midprint(TreeNode<T>* root);//ÖĞĞò±éÀú
-	void backprint(TreeNode<T>* root);//ºóĞò±éÀú
+	void preprint(TreeNode<T>* root);//å…ˆåºéå†
+	void midprint(TreeNode<T>* root);//ä¸­åºéå†
+	void backprint(TreeNode<T>* root);//ååºéå†
 public:
-	//ÒòÎªĞèÒªÓÃµ½µİ¹éinitËùÒÔÕâÀï²»Ê¹ÓÃ¹¹Ôìº¯Êı£¬¶øÊÇĞÂ½¨Ò»¸ö³ÉÔ±º¯Êı,È»ºó¹¹Ôìº¯Êıµ÷ÓÃinit
+	//å› ä¸ºéœ€è¦ç”¨åˆ°é€’å½’initæ‰€ä»¥è¿™é‡Œä¸ä½¿ç”¨æ„é€ å‡½æ•°ï¼Œè€Œæ˜¯æ–°å»ºä¸€ä¸ªæˆå‘˜å‡½æ•°,ç„¶åæ„é€ å‡½æ•°è°ƒç”¨init
 	BinaryTree(T arr[], int len, int start = 0) { pRoot=Init(arr, len, start); };
 	TreeNode<T>* Init(T arr[], int len, int start = 0);
-	~BinaryTree() { clear(pRoot); };//Ö±½Óµ÷ÓÃclear()
+	~BinaryTree() { clear(pRoot); };//ç›´æ¥è°ƒç”¨clear()
 	//void clear();
-	//±éÀú·½Ê½
-	void preprint();//ÏÈĞò±éÀú
-	void midprint();//ÖĞĞò±éÀú
-	void backprint();//ºóĞò±éÀú
-	void levelprint();//²ã¼¶±éÀú
+	//éå†æ–¹å¼
+	void preprint();//å…ˆåºéå†
+	void midprint();//ä¸­åºéå†
+	void backprint();//ååºéå†
+	void levelprint();//å±‚çº§éå†
 };
 
 template<typename T>
-inline void BinaryTree<T>::clear(TreeNode<T>*& root)//×¢ÒâÕâÀïÒª´«½ÚµãÖ¸ÕëµÄÒıÓÃ
+inline void BinaryTree<T>::clear(TreeNode<T>*& root)//æ³¨æ„è¿™é‡Œè¦ä¼ èŠ‚ç‚¹æŒ‡é’ˆçš„å¼•ç”¨
 {
 	if (root)
 	{
-		clear(root->lchild);//´ÓÏÂÍùÉÏÊÍ·Å½Úµã
+		clear(root->lchild);//ä»ä¸‹å¾€ä¸Šé‡Šæ”¾èŠ‚ç‚¹
 		clear(root->rchild);
 		delete root;
-		root = nullptr;//×¢Òâ½ÚµãÖ¸Õë±ØĞëÖØÖÃÎª¿Õ£¬Ã¿´ÎÊÍ·Å¶¼Òª°ÑÖ¸ÕëÖÃ¿Õ£¬Ñø³ÉºÃÏ°¹ß
+		root = nullptr;//æ³¨æ„èŠ‚ç‚¹æŒ‡é’ˆå¿…é¡»é‡ç½®ä¸ºç©ºï¼Œæ¯æ¬¡é‡Šæ”¾éƒ½è¦æŠŠæŒ‡é’ˆç½®ç©ºï¼Œå…»æˆå¥½ä¹ æƒ¯
 	}
 }
 
@@ -55,7 +55,7 @@ inline void BinaryTree<T>::preprint(TreeNode<T>* root)
 		preprint(root->rchild);
 	}
 }
-//ÖĞĞò±éÀú
+//ä¸­åºéå†
 template<typename T>
 inline void BinaryTree<T>::midprint(TreeNode<T>* root)
 {
@@ -66,7 +66,7 @@ inline void BinaryTree<T>::midprint(TreeNode<T>* root)
 		midprint(root->rchild);
 	}
 }
-//ºóĞø±éÀú
+//åç»­éå†
 template<typename T>
 inline void BinaryTree<T>::backprint(TreeNode<T>* root)
 {
@@ -77,17 +77,17 @@ inline void BinaryTree<T>::backprint(TreeNode<T>* root)
 		cout << root->data << " ";
 	}
 }
-//½èÖú¶ÓÁĞ Í¨¹ıµ¯³ö¶ÓÁĞÍ·ºÍÑ¹Èë×óÓÒ×Ó½Úµã·´¸´²Ù×÷£¬Ö±µ½È«²¿Êä³ö(·Çµİ¹éÊä³ö)
+//å€ŸåŠ©é˜Ÿåˆ— é€šè¿‡å¼¹å‡ºé˜Ÿåˆ—å¤´å’Œå‹å…¥å·¦å³å­èŠ‚ç‚¹åå¤æ“ä½œï¼Œç›´åˆ°å…¨éƒ¨è¾“å‡º(éé€’å½’è¾“å‡º)
 template<typename T>
 inline void BinaryTree<T>::levelprint()
 {
-	queue<TreeNode<T>*> que;//´´½¨Ò»¸ö¶ÓÁĞ¶ÔÏó
+	queue<TreeNode<T>*> que;//åˆ›å»ºä¸€ä¸ªé˜Ÿåˆ—å¯¹è±¡
 	TreeNode<T>* temp;
 	que.push(pRoot);
 	while (!que.empty())
 	{
 		temp = que.front();
-		que.pop();//µ¯³öÍ·
+		que.pop();//å¼¹å‡ºå¤´
 		cout << temp->data << " ";
 		if (temp->lchild)
 			que.push(temp->lchild);
@@ -96,28 +96,29 @@ inline void BinaryTree<T>::levelprint()
 	}
 }
 
-//Í¨¹ıÊı×é¹¹ÔìÒ»¸öÍêÈ«¶ş²æÊ÷,¶ş²æÊ÷µÄÏÂ±ê°´ÕÕ²ã´Î±àºÅ
+//é€šè¿‡æ•°ç»„æ„é€ ä¸€ä¸ªå®Œå…¨äºŒå‰æ ‘,äºŒå‰æ ‘çš„ä¸‹æ ‡æŒ‰ç…§å±‚æ¬¡ç¼–å·
 template<typename T>
-inline TreeNode<T>* BinaryTree<T>::Init(T arr[], int len, int start)//start±íÊ¾´ÓÊı×éµÄµÚ¼¸¸öÎ»ÖÃ¿ªÊ¼¹¹Ôì
+inline TreeNode<T>* BinaryTree<T>::Init(T arr[], int len, int start)//startè¡¨ç¤ºä»æ•°ç»„çš„ç¬¬å‡ ä¸ªä½ç½®å¼€å§‹æ„é€ 
 {
 	if (start >= len)
 		return nullptr;
-	//Ç°Ğò¹¹Ôì ¸ù ×ó ÓÒ
-	//´´½¨¸ù½Úµã---
+	//å‰åºæ„é€  æ ¹ å·¦ å³
+	//åˆ›å»ºæ ¹èŠ‚ç‚¹---
 	TreeNode<T>* newnode = new TreeNode<T>;
 	newnode->data = arr[start];
 	//--
-	newnode->lchild = Init(arr, len, start * 2 + 1);//´´½¨×ó×Ó½Úµã
-	newnode->rchild = Init(arr, len, start * 2 + 2);//´´½¨ÓÒ×Ó½Úµã
-	return newnode;//·µ»Ønennode¸ü¿ÆÑ§
+	newnode->lchild = Init(arr, len, start * 2 + 1);//åˆ›å»ºå·¦å­èŠ‚ç‚¹
+	newnode->rchild = Init(arr, len, start * 2 + 2);//åˆ›å»ºå³å­èŠ‚ç‚¹
+	return newnode;//è¿”å›nennodeæ›´ç§‘å­¦
+	//å¯¹äºä¸€èˆ¬çš„æ ‘ç¬¬iå±‚æœ€å·¦è¾¹æ•°ç»„ä¸‹æ ‡ä¸æ˜¯2^(i-1)æ¬¡äº†ï¼Œä½†æ˜¯å¯ä»¥è‡ªå·±å†™å¥½ä¸€ä¸ªä¼´éšæ•°ç»„ä¸‹æ ‡æ¯”å¦‚0 11 222 333
 }
-//µİ¹éÇå¿Õ£¬ĞèÒª´«Èë²ÎÊı
+//é€’å½’æ¸…ç©ºï¼Œéœ€è¦ä¼ å…¥å‚æ•°
 //template<typename T>
-//void BinaryTree<T>::clear()//ÒòÎªclearÊÇ¸øÍâ²¿µ÷ÓÃµÄ£¬Ã»ÓĞ²ÎÊı£¬ËùÒÔÒªĞ´Ò»¸öÄÚ²¿µÄclear
+//void BinaryTree<T>::clear()//å› ä¸ºclearæ˜¯ç»™å¤–éƒ¨è°ƒç”¨çš„ï¼Œæ²¡æœ‰å‚æ•°ï¼Œæ‰€ä»¥è¦å†™ä¸€ä¸ªå†…éƒ¨çš„clear
 //{
 //	clear(pRoot);
 //}
-//Ç°Ğò±éÀú
+//å‰åºéå†
 template<typename T>
 inline void BinaryTree<T>::preprint()
 {
