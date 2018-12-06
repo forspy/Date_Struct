@@ -55,6 +55,7 @@ public:
 	void prePrint(unsigned int index = 0);//前序遍历，index表示编号（顺序存储特有），不一定从根开始遍历
 	void midPrint(unsigned int index = 0);//中序遍历
 	void backPrint(unsigned int index = 0);//后序遍历
+	void levelPrint();//层级遍历，非递归遍历
 };
 //构造,按照顺序存储方式构造
 template<typename T>
@@ -141,16 +142,32 @@ void TreeArr<T>::backPrint(unsigned int index)
 	
 }
 
+template<typename T>
+void TreeArr<T>::levelPrint()
+{
+	vector<int>::iterator iter;
+	for (iter = vecBuff.begin(); iter != vecBuff.end(); ++iter)
+	{
+		cout << *iter << " ";
+	}
+}
+
 int  main()
 {
 	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
 	int nSize = sizeof(arr) / sizeof(arr[0]);
 	TreeArr<int> tree(arr, nSize);
 	bool b = tree.find(9);
+	cout << "先序遍历" << endl;
 	tree.prePrint();
 	cout << endl;
+	cout << "中序遍历" << endl;
 	tree.midPrint();
 	cout << endl;
+	cout << "后序遍历" << endl;
 	tree.backPrint();
+	cout << endl;
+	cout << "(非递归)层级遍历" << endl;
+	tree.levelPrint();
 	cout << endl;
 }
