@@ -22,7 +22,7 @@ private:
 	void backprint(TreeNode<T>* root);//ºóĞò±éÀú
 public:
 	//ÒòÎªĞèÒªÓÃµ½µİ¹éinitËùÒÔÕâÀï²»Ê¹ÓÃ¹¹Ôìº¯Êı£¬¶øÊÇĞÂ½¨Ò»¸ö³ÉÔ±º¯Êı,È»ºó¹¹Ôìº¯Êıµ÷ÓÃinit
-	BinaryTree(T arr[], int len, int start = 0) { Init(arr, len, start); };
+	BinaryTree(T arr[], int len, int start = 0) { pRoot=Init(arr, len, start); };
 	TreeNode<T>* Init(T arr[], int len, int start = 0);
 	~BinaryTree() { clear(pRoot); };//Ö±½Óµ÷ÓÃclear()
 	//void clear();
@@ -109,8 +109,7 @@ inline TreeNode<T>* BinaryTree<T>::Init(T arr[], int len, int start)//start±íÊ¾´
 	//--
 	newnode->lchild = Init(arr, len, start * 2 + 1);//´´½¨×ó×Ó½Úµã
 	newnode->rchild = Init(arr, len, start * 2 + 2);//´´½¨ÓÒ×Ó½Úµã
-	pRoot = newnode;
-	return pRoot;
+	return newnode;//·µ»Ønennode¸ü¿ÆÑ§
 }
 //µİ¹éÇå¿Õ£¬ĞèÒª´«Èë²ÎÊı
 //template<typename T>
