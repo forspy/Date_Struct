@@ -74,6 +74,7 @@ void PrintArr(int arr[],int Size)
 	cout << endl;
 }
 //冒泡排序
+//时间复杂度为O(n ^ 2）
 void BubbleSort(int arr[],int size)
 {
 	for (int i = 0; i < size - 1; i++)//0-9
@@ -129,6 +130,7 @@ void qsort(int arr[], int left, int right)//left和right为要排的范围
 	//cout << __func__ << ":";//用于打印这个函数的名字,递归的不能打印名字
 }
 //效率更高的快速排序，避免了交换产生的时间
+//时间复杂度为O(nlog2n)
 void qsort_optimization(int * arr, int left, int right)
 {
 	if (left < right)
@@ -185,6 +187,7 @@ void BucketSort(int * arr, int Size)
 	cout << __func__ << ":";//用于打印这个函数的名字
 }
 //插入排序，将待排的元素依次插入已经排好的序列中
+//时间复杂度为O(n^2)
 void InsertSort(int * arr, int Size)//O(n^2)
 {
 	int temp;
@@ -225,6 +228,7 @@ void ShellSort(int * arr, int Size)
 	cout << __func__ << ":";//用于打印这个函数的名字
 }
 //选择排序，选择最小的一个数插入到数组尾部
+//时间复杂度为O(n^2）
 void SelectSort(int * arr, int Size)
 {
 	for (int i = 0; i < Size; i++)//有序区
