@@ -19,7 +19,8 @@ struct BSTreeNode
 	T data;
 	BSTreeNode* lchild;
 	BSTreeNode* rchild;
-	BSTreeNode(const T& data,BSTreeNode<T>* l=nullptr,BSTreeNode<T>* r=nullptr):data(data),lchild(l),rchild(r){ }
+	BSTreeNode* father;//为了删除一个节点以及它的子节点，这里的做法是加入指向父节点的索引，这样当找到目标节点的地址以后，可以通过该节点的父节点再指向子节点这样就得到一个左值(实体)，再clear这个实体
+	BSTreeNode(const T& data,BSTreeNode<T>* l=nullptr,BSTreeNode<T>* r=nullptr, BSTreeNode<T>* f = nullptr):data(data),lchild(l),rchild(r),father(f){ }
 };
 
 template<typename T>
@@ -35,6 +36,7 @@ private:
 	void prePrint(BSTreeNode<T>* node);//先序内部递归遍历
 	void midPrint(BSTreeNode<T>* node);//中序内部递归遍历
 	void backPrint(BSTreeNode<T>* node);//后序内部递归遍历
+	//辅助算法：找到目标节点的父节点
 public:
 	BSTree():pRoot(nullptr){ }
 	~BSTree() { clear(); }
@@ -114,6 +116,8 @@ inline void BSTree<T>::backPrint(BSTreeNode<T>* node)
 		cout << node->data << " ";
 	}
 }
+//辅助算法：找到目标节点的父节点
+
 
 template<typename T>
 inline void BSTree<T>::clear()
@@ -140,14 +144,20 @@ inline void BSTree<T>::insert(BSTreeNode<T>* root, BSTreeNode<T>* node)
 	if (root->data > node->data)//如果node->data比root->data小，放在左子节点
 	{
 		if (root->lchild == nullptr)
+		{
 			root->lchild = node;
+			root->lchild->father = root;
+		}
 		else
 			insert(root->lchild, node);//递归调用，这时候以root->rchild为root节点判断
 	}
 	else if (root->data <=node->data)//如果node->data比root->data大，放在右子节点,如果相等就作为rchild
 	{
 		if (root->rchild == nullptr)
+		{
 			root->rchild = node;
+			root->rchild->father = root;
+		}
 		else
 			insert(root->rchild, node);
 	}
@@ -165,14 +175,24 @@ inline BSTreeNode<T>* BSTree<T>::Search(const T & data)
 	return temp;
 }
 //删除一个节点(包括他的子节点)
+//为了删除一个节点以及它的子节点，这里的做法是加入指向父节点的索引，这样当找到目标节点的地址以后，
+//可以通过该节点的父节点再指向子节点这样就得到一个左值(实体)，再clear这个实体
 template<typename T>
 inline void BSTree<T>::DelNode(const T & data)
 {
 	//BSTreeNode<T>* temp = Search(data);//注意这里会将temp临时变量指向的内存释放,并且将temp设置为nullptr,
 	//并没有把真正的节点地址设置为nullptr,所以应该传入对应节点地址的引用
-	BSTreeNode<T>* findNode = Search(data);//因为 无法从“BSTreeNode<T> *”转换为“BSTreeNode<T> *&”	
-	//所以考虑search返回一个引用
-	clear(findNode);//而且引用对引用,保持类型一致
+	//因为 无法从“BSTreeNode<T> *”转换为“BSTreeNode<T> *&”	所以我们改变策略考虑search返回一个引用，然而递归中有nullptr不能当作引用返回
+	//所以我们改变策略去求目标节点的父节点，通过目标节点的father索引找到父节点，再通过父节点找到子节点，这样的子节点就是一个实体指针(左值),可以调用clear()操作
+	BSTreeNode<T>* findNode = Search(pRoot, data);
+	
+	if (findNode->father->lchild->data == data)
+		clear(findNode->father->lchild);//而且引用对引用,保持类型一致
+	else
+		clear(findNode->father->rchild);
+	//找到这个节点的parent，然后对他的child赋空值
+
+
 }
 
 template<typename T>

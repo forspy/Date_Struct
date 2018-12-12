@@ -24,10 +24,10 @@ int main()
 		BinFindTree.insert(arr[i]);
 	}
 
-	BinFindTree.DelNode(3);
+	BinFindTree.DelNode(2);
 	BinFindTree.prePrint();//先序遍历
-	//BinFindTree.midPrint();//中序遍历
-	//BinFindTree.backPrint();//后序遍历
+	BinFindTree.midPrint();//中序遍历
+	BinFindTree.backPrint();//后序遍历
 	//cout << BinFindTree.Search(8) << endl;//搜素可以返回一个节点地址
 
 }
