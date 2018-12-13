@@ -36,7 +36,7 @@ private:
 	void prePrint(BSTreeNode<T>* node);//先序内部递归遍历
 	void midPrint(BSTreeNode<T>* node);//中序内部递归遍历
 	void backPrint(BSTreeNode<T>* node);//后序内部递归遍历
-	//辅助算法：找到目标节点的父节点
+	
 public:
 	BSTree():pRoot(nullptr){ }
 	~BSTree() { clear(); }
@@ -44,11 +44,13 @@ public:
 	void insert(const T& data);//插入一个节点
 	
 	BSTreeNode<T>* Search(const T& data);//外部搜索方法
-	//拓展：删除一个节点（找到这个节点，并调用内部clear方法）
+	//拓展：删除一个节点（找到这个节点，并调用内部clear方法）//辅助算法：找到目标节点的父节点
 	void DelNode(const T& data);
 	void prePrint();//先序遍历
 	void midPrint();//中序遍历
 	void backPrint();//后序遍历
+	BSTreeNode<T>* Min();//找到二叉查找树的最小值
+	BSTreeNode<T>* Max();//找到二叉查找树的最大值
 };
 
 template<typename T>
@@ -217,6 +219,44 @@ inline void BSTree<T>::backPrint()
 	cout << __func__ << ":";
 	backPrint(pRoot);
 	cout << endl;
+}
+
+template<typename T>
+inline BSTreeNode<T>* BSTree<T>::Min()
+{
+	if (pRoot)
+	{
+		//二叉搜索树的最小值一定是最左边的树
+		BSTreeNode<T>* temp = pRoot;
+		while (temp->lchild)
+		{
+			temp = temp->lchild;
+		}
+		return temp;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+template<typename T>
+inline BSTreeNode<T>* BSTree<T>::Max()
+{
+	if (pRoot)
+	{
+		//找最右边的树就是最大值
+		BSTreeNode<T>* temp = pRoot;
+		while (temp->rchild)
+		{
+			temp = temp->rchild;
+		}
+		return temp;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 

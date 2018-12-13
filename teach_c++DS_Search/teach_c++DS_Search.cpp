@@ -28,8 +28,9 @@ int main()
 	BinFindTree.prePrint();//先序遍历
 	BinFindTree.midPrint();//中序遍历
 	BinFindTree.backPrint();//后序遍历
-	//cout << BinFindTree.Search(8) << endl;//搜素可以返回一个节点地址
-
+	cout << BinFindTree.Search(8) << endl;//搜素可以返回一个节点地址
+	cout << "二叉查找树的最小值为：" << BinFindTree.Min()->data << endl;
+	cout << "二叉查找树的最大值为：" << BinFindTree.Max()->data << endl;
 }
 
 int SequenceSearch(int * arr, int size, int findValue)
