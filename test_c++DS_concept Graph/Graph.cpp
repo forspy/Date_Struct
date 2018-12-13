@@ -54,3 +54,55 @@ TD=OD(出度)+ID(入度)
 十字链表：
 |数据域|序号|出度指针域|入度指针域|
 */
+
+#include"MatrixUDG.h"
+#include<iostream>
+#include<vector>
+#include"ListUDG.h"
+using namespace std;
+int main()
+{
+	//边的信息
+	char vertax[] = { 'A','B','C','D','E','F' };
+	int vertaxNum = sizeof(vertax) / sizeof(vertax[0]);
+	char edge[][2] = {//无向图的边信息
+		{'A','B'},
+		{'A','C'},
+		{'B','C'},
+		{'B','E'},
+		{'B','F'},
+		{'C','F'},
+		{'C','E'},
+		{'C','D'},
+		{'E','F'},
+	};
+	int edgeNum = sizeof(edge) / sizeof(edge[0]);
+	//int a=sizeof(edge);
+	MatrixUDG MUDG(vertax, edge, vertaxNum, edgeNum);
+	cout << "无向图的邻接矩阵" << endl;
+	MUDG.PrintMatrixUDG();
+	char vertax1[] = { 'A','B','C','D','E','F' };
+	int vertaxNum1 = sizeof(vertax) / sizeof(vertax[0]);
+	char edge1[][2] = {
+		{'A','B'},
+		{'B','C'},
+		{'B','E'},
+		{'B','F'},
+		{'C','D'},
+		{'C','F'},
+		{'E','F'},
+		{'F','C'},
+	};
+	int edgeNum1 = sizeof(edge1) / sizeof(edge1[0]);
+	MatrixDG MDG(vertax1, edge1, vertaxNum1, edgeNum1);
+	cout << "有向图的邻接矩阵" << endl;
+	MDG.PrintMatrixDG();
+
+	//----------------邻接表
+	ListUDG LUDG(vertax, edge, vertaxNum, edgeNum);
+	cout << "无向图的邻接表" << endl;
+	LUDG.PrintListUDG();
+	ListDG LDG(vertax, edge, vertaxNum, edgeNum);
+	cout << "有向图的邻接表" << endl;
+	LDG.PrintListDG();
+}
