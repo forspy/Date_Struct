@@ -81,6 +81,11 @@ int main()
 	MatrixUDG MUDG(vertax, edge, vertaxNum, edgeNum);
 	cout << "无向图的邻接矩阵" << endl;
 	MUDG.PrintMatrixUDG();
+	cout << "无向图的深度遍历" << endl;
+	MUDG.DFS();
+	cout << "无向图的广度遍历" << endl;
+	MUDG.BFS();
+	//-------------------------------
 	char vertax1[] = { 'A','B','C','D','E','F' };
 	int vertaxNum1 = sizeof(vertax) / sizeof(vertax[0]);
 	char edge1[][2] = {
