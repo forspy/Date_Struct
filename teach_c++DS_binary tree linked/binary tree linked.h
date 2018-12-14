@@ -31,7 +31,12 @@ public:
 	void midprint();//中序遍历
 	void backprint();//后序遍历
 	void levelprint();//层级遍历
+	/*
+	判断一棵树是否是完全二叉树 :一层满了，下一层优先满左子树
+	思路:层次遍历二叉树，找到第一个非满结点（这个节点只有两种情况，孩子为空或者只有左没有右），如果之后的节点还有非满结点，则不是。 
+	将所有的结点全部压入队列中，每次判断队列的头如果队列头为空了则跳出循环，如果此后队列中还有元素则不是完全二叉树。
 };
+	*/ 
 
 template<typename T>
 inline void BinaryTree<T>::clear(TreeNode<T>*& root)//注意这里要传节点指针的引用
