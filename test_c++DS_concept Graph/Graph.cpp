@@ -83,6 +83,10 @@ int main()
 	MUDG.PrintMatrixUDG();
 	cout << "无向图的深度遍历" << endl;
 	MUDG.DFS();
+	cout << "无向图的深度遍历简化版" << endl;
+	MUDG.DFS_opt();
+	cout << "无向图的深度遍历非递归版" << endl;
+	MUDG.DFS_Non_recursive();
 	cout << "无向图的广度遍历" << endl;
 	MUDG.BFS();
 	//-------------------------------
@@ -107,7 +111,7 @@ int main()
 	ListUDG LUDG(vertax, edge, vertaxNum, edgeNum);
 	cout << "无向图的邻接表" << endl;
 	LUDG.PrintListUDG();
-	ListDG LDG(vertax, edge, vertaxNum, edgeNum);
+	ListDG LDG(vertax1, edge1, vertaxNum1, edgeNum1);
 	cout << "有向图的邻接表" << endl;
 	LDG.PrintListDG();
 }

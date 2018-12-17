@@ -1,6 +1,7 @@
 #include "MatrixUDG.h"
 #include<iostream>
 #include<queue>
+#include<stack>
 using namespace std;
 //第i个点的DFS递归遍历
 void MatrixUDG::DFS(int i,int* visited)
@@ -13,6 +14,19 @@ void MatrixUDG::DFS(int i,int* visited)
 		if (visited[j] == 0)
 			DFS(j,visited);//表示以i顶点邻接的这个j顶点为几点继续进行深度递归遍历
 	}
+}
+//深度搜索简化版
+void MatrixUDG::DFS_opt(int i, vector<bool>& visited)
+{
+	cout << m_vertax[i] << " ";//先输出当前点i
+	visited[i] = true;//设置为已经访问过
+	//看当前的顶点：1.是否有邻接点2.是否被访问过
+	for (int j = 0; j < m_vertaxNum; j++)
+	{
+		if (m_matrix[i][j]==1 && visited[j] == false)//如果这个顶点有邻接点，并且这个邻接点没有被访问过，那么对这个邻接点应用递归算法
+			DFS_opt(j, visited);
+	}
+	//所以输出的顺序是按照邻接图的顺序
 }
 //返回第i个顶点的第一个邻接顶点的索引，没有则返回-1
 int MatrixUDG::firstVertex(int i)
@@ -90,17 +104,67 @@ void MatrixUDG::PrintMatrixUDG()
 	}
 }
 
-void MatrixUDG::DFS()//外部接口深度遍历
+void MatrixUDG::DFS()//外部接口深度遍历deep first search
 {
 	cout << __func__ << ":" << endl;
 	int visited[MAX];
 	//初始化所有顶点访问为0
 	memset(visited, 0, sizeof(int)*MAX);
-	int i;
-	for (i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertaxNum; i++)
 	{
 		if (visited[i] == 0)
 			DFS(i,visited);
+	}
+	cout << endl;
+}
+void MatrixUDG::DFS_opt()
+{
+	cout << __func__ << endl;
+	//首先利用一个辅助数组来记录这个顶点是不是已经访问过
+	vector<bool> visited(m_vertaxNum);//这样初始化为0，即false
+	for (int i = 0; i < m_vertaxNum; i++)
+	{
+		if (visited[i] == false)
+			DFS_opt(i, visited);
+	}
+	cout << endl;
+}
+void MatrixUDG::DFS_Non_recursive()//非递归思想：利用辅助栈来完成上一个邻接父节点的存储
+{
+	cout << __func__ << endl;
+	//首先利用一个辅助数组来记录这个顶点是不是已经访问过
+	vector<bool> visited(m_vertaxNum);//这样初始化为0，即false
+	stack<int> s;//创建一个堆栈记录顶点的下标
+	int temp;
+	for (int i = 0; i < m_vertaxNum; i++)
+	{
+		if (visited[i] == false)//如果这个顶点没有被访问过
+		{
+			temp = i;//记录当前遍历到的这个顶点的位置
+			s.push(i);//就把这个顶点的下标压入栈
+			cout << m_vertax[i] << " ";//把这个顶点输出出来
+			visited[i] = true;//把这个顶点设置为已经访问过
+			//接着找这个顶点的邻接点
+			for (int j = 0; ; j++)//设置一个无限循环计数
+			{
+				if (m_matrix[i][j] == 1 && visited[j] == false)//找符合要求额邻接点
+				{
+					visited[j] = true;
+					s.push(j);//把这个邻接顶点的下标压入栈
+					cout << m_vertax[j] << " ";
+					i = j;//邻接点作为起点
+					j = 0;//表示重新开始计数
+				}
+				if (j == m_vertaxNum)//i没有邻接点
+				{
+					if (temp == s.top())//如果栈顶等于一开始遍历的节点下标temp，说明在它的所有邻接联通顶点都已经被弹光了，退出循环
+						break;
+					s.pop();//弹出不符合要求的点
+					i = s.top();//相当于选取父邻接节点为起点
+					j = 0;//表示重新开始计数
+				}
+			}
+		}
 	}
 	cout << endl;
 }
