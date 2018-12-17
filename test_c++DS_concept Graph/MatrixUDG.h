@@ -26,7 +26,7 @@ public:
 	//深度优先搜索非递归版
 	void DFS_Non_recursive();
 	void BFS();//广度优先搜索，类似于树的层次遍历，需要引入一个队列来帮助我们遍历
-
+	void BFS_opt();//广度优先搜素简化版
 };
 //有向图邻接矩阵表示法
 class MatrixDG

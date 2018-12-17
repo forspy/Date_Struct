@@ -1,5 +1,6 @@
 #include "ListUDG.h"
 #include<iostream>
+#include<queue>
 using namespace std;
 ListUDG::ListUDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum):m_vertax(MAX)//因为类的声明中不能开辟空间，所以建议在初始化列表中初始化成员变量
 //构造函数就是为了构造成员变量,只能通过初始化列表进行
@@ -105,6 +106,7 @@ ListUDG::~ListUDG()
 		}
 	}
 }
+
 
 ListDG::ListDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum) :m_vertax(MAX)
 {

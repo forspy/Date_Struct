@@ -89,6 +89,8 @@ int main()
 	MUDG.DFS_Non_recursive();
 	cout << "无向图的广度遍历" << endl;
 	MUDG.BFS();
+	cout << "无向图的广度遍历简化版" << endl;
+	MUDG.BFS_opt();
 	//-------------------------------
 	char vertax1[] = { 'A','B','C','D','E','F' };
 	int vertaxNum1 = sizeof(vertax) / sizeof(vertax[0]);

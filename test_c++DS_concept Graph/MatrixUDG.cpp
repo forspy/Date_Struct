@@ -206,6 +206,37 @@ void MatrixUDG::BFS()
 	cout << endl;
 }
 
+void MatrixUDG::BFS_opt()
+{
+	cout << __func__ << endl;
+	queue<int> q;//利用队列储存下标
+	vector<bool> visited(m_vertaxNum);
+	for (int i = 0; i < m_vertaxNum; i++)
+	{
+		if (visited[i] == false)
+		{
+			visited[i] = true;
+			cout << m_vertax[i]<< " ";
+			q.push(i);//把改顶点的下表压入队列
+			while (!q.empty())
+			{
+				int start = q.front();//把队列头作为起点顶点继续寻找
+				q.pop();
+				for (int j = 0; j < m_vertaxNum; j++)
+				{
+					if (m_matrix[i][j] == 1 && visited[j] == false)
+					{
+						q.push(j);//压入邻接点
+						visited[j] = true;
+						cout << m_vertax[j] << " ";//输出这个邻接点
+					}
+				}
+			}
+		}
+	}
+	cout << endl;
+}
+
 MatrixDG::MatrixDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum)
 {
 	memset(m_vertax, 0, sizeof(m_vertax));

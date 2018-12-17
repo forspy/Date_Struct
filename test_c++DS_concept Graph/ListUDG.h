@@ -29,6 +29,7 @@ public:
 	void PrintListUDG();//打印邻接表
 	~ListUDG();//不同于邻接图，因为邻接图是一个二维数组，可以被直接创建，
 	//而这里的Enode是节点需要new来创建分配内存，所以需要析构函数释放
+	//void BFS();//广度优先搜索
 };
 //有向邻接表
 class ListDG
