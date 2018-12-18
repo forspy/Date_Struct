@@ -63,8 +63,8 @@ using namespace std;
 int main()
 {
 	//边的信息
-	char vertax[] = { 'A','B','C','D','E','F' };
-	int vertaxNum = sizeof(vertax) / sizeof(vertax[0]);
+	char vertex[] = { 'A','B','C','D','E','F' };
+	int vertexNum = sizeof(vertex) / sizeof(vertex[0]);
 	char edge[][2] = {//无向图的边信息
 		{'A','B'},
 		{'A','C'},
@@ -78,22 +78,22 @@ int main()
 	};
 	int edgeNum = sizeof(edge) / sizeof(edge[0]);
 	//int a=sizeof(edge);
-	MatrixUDG MUDG(vertax, edge, vertaxNum, edgeNum);
+	MatrixUDG MUDG(vertex, edge, vertexNum, edgeNum);
 	cout << "无向图的邻接矩阵" << endl;
 	MUDG.PrintMatrixUDG();
-	cout << "无向图的深度遍历" << endl;
+	cout << "无向图的邻接矩阵深度遍历" << endl;
 	MUDG.DFS();
-	cout << "无向图的深度遍历简化版" << endl;
+	cout << "无向图的邻接矩阵深度遍历简化版" << endl;
 	MUDG.DFS_opt();
-	cout << "无向图的深度遍历非递归版" << endl;
+	cout << "无向图的邻接矩阵深度遍历非递归版" << endl;
 	MUDG.DFS_Non_recursive();
-	cout << "无向图的广度遍历" << endl;
+	cout << "无向图的邻接矩阵广度遍历" << endl;
 	MUDG.BFS();
-	cout << "无向图的广度遍历简化版" << endl;
+	cout << "无向图的邻接矩阵广度遍历简化版" << endl;
 	MUDG.BFS_opt();
 	//-------------------------------
-	char vertax1[] = { 'A','B','C','D','E','F' };
-	int vertaxNum1 = sizeof(vertax) / sizeof(vertax[0]);
+	char vertex1[] = { 'A','B','C','D','E','F' };
+	int vertexNum1 = sizeof(vertex) / sizeof(vertex[0]);
 	char edge1[][2] = {
 		{'A','B'},
 		{'B','C'},
@@ -105,15 +105,21 @@ int main()
 		{'F','C'},
 	};
 	int edgeNum1 = sizeof(edge1) / sizeof(edge1[0]);
-	MatrixDG MDG(vertax1, edge1, vertaxNum1, edgeNum1);
+	MatrixDG MDG(vertex1, edge1, vertexNum1, edgeNum1);
 	cout << "有向图的邻接矩阵" << endl;
 	MDG.PrintMatrixDG();
 
 	//----------------邻接表
-	ListUDG LUDG(vertax, edge, vertaxNum, edgeNum);
+	ListUDG LUDG(vertex, edge, vertexNum, edgeNum);
 	cout << "无向图的邻接表" << endl;
 	LUDG.PrintListUDG();
-	ListDG LDG(vertax1, edge1, vertaxNum1, edgeNum1);
+	cout << "无向图邻接表的深度搜索简化版" << endl;
+	LUDG.DFS_opt();
+	cout << "无向图邻接表的广度搜索简化版" << endl;
+	LUDG.BFS_opt();
+	ListDG LDG(vertex1, edge1, vertexNum1, edgeNum1);
 	cout << "有向图的邻接表" << endl;
 	LDG.PrintListDG();
+	//有向图和有向表的深度/广度方法和无向图/表的方法一致
+	//搜索引擎更多是利用启发式搜索(例如:A*搜索)、拓扑搜索、迪杰斯特拉算法（Dijkstra）
 }

@@ -8,8 +8,8 @@ void MatrixUDG::DFS(int i,int* visited)
 {
 	int j;
 	visited[i] = 1;//ÏÈ½«Õâ¸öµãÉèÖÃÎª1±íÊ¾·ÃÎÊ¹ıÁË
-	cout << m_vertax[i] << " ";
-	for (j = firstVertex(i); j >= 0; j = nextVertax(i, j))
+	cout << m_vertex[i] << " ";
+	for (j = firstVertex(i); j >= 0; j = nextVertex(i, j))
 	{
 		if (visited[j] == 0)
 			DFS(j,visited);//±íÊ¾ÒÔi¶¥µãÁÚ½ÓµÄÕâ¸öj¶¥µãÎª¼¸µã¼ÌĞø½øĞĞÉî¶Èµİ¹é±éÀú
@@ -18,10 +18,10 @@ void MatrixUDG::DFS(int i,int* visited)
 //Éî¶ÈËÑË÷¼ò»¯°æ
 void MatrixUDG::DFS_opt(int i, vector<bool>& visited)
 {
-	cout << m_vertax[i] << " ";//ÏÈÊä³öµ±Ç°µãi
+	cout << m_vertex[i] << " ";//ÏÈÊä³öµ±Ç°µãi
 	visited[i] = true;//ÉèÖÃÎªÒÑ¾­·ÃÎÊ¹ı
 	//¿´µ±Ç°µÄ¶¥µã£º1.ÊÇ·ñÓĞÁÚ½Óµã2.ÊÇ·ñ±»·ÃÎÊ¹ı
-	for (int j = 0; j < m_vertaxNum; j++)
+	for (int j = 0; j < m_vertexNum; j++)
 	{
 		if (m_matrix[i][j]==1 && visited[j] == false)//Èç¹ûÕâ¸ö¶¥µãÓĞÁÚ½Óµã£¬²¢ÇÒÕâ¸öÁÚ½ÓµãÃ»ÓĞ±»·ÃÎÊ¹ı£¬ÄÇÃ´¶ÔÕâ¸öÁÚ½ÓµãÓ¦ÓÃµİ¹éËã·¨
 			DFS_opt(j, visited);
@@ -32,9 +32,9 @@ void MatrixUDG::DFS_opt(int i, vector<bool>& visited)
 int MatrixUDG::firstVertex(int i)
 {
 	int j;
-	if (i<0 || i>(m_vertaxNum - 1))//ÒòÎªi´Ó0¿ªÊ¼£¬ËùÒÔm_vertaxNum - 1±íÊ¾×îºóÒ»¸ö¶¥µã
+	if (i<0 || i>(m_vertexNum - 1))//ÒòÎªi´Ó0¿ªÊ¼£¬ËùÒÔm_vertexNum - 1±íÊ¾×îºóÒ»¸ö¶¥µã
 		return -1;
-	for (j = 0; j < m_vertaxNum; j++)
+	for (j = 0; j < m_vertexNum; j++)
 	{
 		if (m_matrix[i][j] == 1)
 			return j;
@@ -42,12 +42,12 @@ int MatrixUDG::firstVertex(int i)
 	return -1;
 }
 //·µ»ØµÚi¸ö¶¥µãµÄÏà¶ÔÓÚjÁÚ½ÓµãµÄÏÂÒ»¸öÁÚ½Ó¶¥µãµÄË÷Òı£¬Ã»ÓĞÔò·µ»Ø - 1
-int MatrixUDG::nextVertax(int i, int j)
+int MatrixUDG::nextVertex(int i, int j)
 {
 	int j_next;//±íÊ¾ÏÂÒ»¸öÁÚ½ÓµãµÄÎ»ÖÃ(×İ×ø±ê),ĞÄÖĞÒªÓĞ¶şÎ¬ÁÚ½Ó¾ØÕó
-	if (i<0 || i>(m_vertaxNum - 1) || j<0 || i>(m_vertaxNum - 1))
+	if (i<0 || i>(m_vertexNum - 1) || j<0 || i>(m_vertexNum - 1))
 		return -1;
-	for (j_next = j + 1; j_next < m_vertaxNum; j_next++)
+	for (j_next = j + 1; j_next < m_vertexNum; j_next++)
 	{
 		if (m_matrix[i][j_next] == 1)
 			return j_next;
@@ -55,28 +55,28 @@ int MatrixUDG::nextVertax(int i, int j)
 	return -1;
 }
 
-MatrixUDG::MatrixUDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum)
+MatrixUDG::MatrixUDG(char vertex[], char edge[][2], int vertexNum, int edgeNum)
 {
-	memset(m_vertax, 0, sizeof(m_vertax));
+	memset(m_vertex, 0, sizeof(m_vertex));
 	memset(m_matrix, 0, sizeof(m_matrix));//½«ÁÚ½Ó¾ØÕó³õÊ¼»¯Îª0
 	//¶¥µãÊıºÍ±ßÊı¸³Öµ
-	m_vertaxNum = vertaxNum;
+	m_vertexNum = vertexNum;
 	m_edgeNum = edgeNum;
-	//ÓÃvertax[]³õÊ¼»¯ÀàÖĞµÄ¶¥µãÊı×é
-	//memcpy(m_vertax, vertax, sizeof(vertax));//×¢ÒâÕâÀïÃæµÄvertaxÒÑ¾­ÊÇÒ»¸öÖ¸ÕëÁË¶ø²»ÊÇÒ»¸öÊı×éËùÒÔÖ±½Ósizeof(vertax)ÊÇÒ»¸öÖ¸Õë4¸ö×Ö½Ú
-	memcpy(m_vertax, vertax, sizeof(char)*vertaxNum);
+	//ÓÃvertex[]³õÊ¼»¯ÀàÖĞµÄ¶¥µãÊı×é
+	//memcpy(m_vertex, vertex, sizeof(vertex));//×¢ÒâÕâÀïÃæµÄvertexÒÑ¾­ÊÇÒ»¸öÖ¸ÕëÁË¶ø²»ÊÇÒ»¸öÊı×éËùÒÔÖ±½Ósizeof(vertex)ÊÇÒ»¸öÖ¸Õë4¸ö×Ö½Ú
+	memcpy(m_vertex, vertex, sizeof(char)*vertexNum);
 	//Í¨¹ıÁÚ½Ó¾ØÕó±íÊ¾±ß
 	int v_i, v_j;//±íÊ¾ÁÚ½Ó¾ØÕóµÄºá×ø±êºÍ×İ×ø±ê£¬Ò²¶¼ÊÇ¶¥µãÊı×éµÄÏÂ±ê
 	for (int i = 0; i < edgeNum; i++)//±éÀú±ßµÄĞÅÏ¢
 	{
-		for (v_i = 0; v_i < vertaxNum; v_i++)//Ñ°ÕÒ¶¥µãÊı×éÖĞÓëµÚi±ßµÄµÚ0¸öÔªËØÏàÍ¬µÄÖµµÄÎ»ÖÃ
+		for (v_i = 0; v_i < vertexNum; v_i++)//Ñ°ÕÒ¶¥µãÊı×éÖĞÓëµÚi±ßµÄµÚ0¸öÔªËØÏàÍ¬µÄÖµµÄÎ»ÖÃ
 		{
-			if (edge[i][0] == vertax[v_i])//ÕÒ±ÈÈç{'A','B'}µÄÎ»ÖÃ
+			if (edge[i][0] == vertex[v_i])//ÕÒ±ÈÈç{'A','B'}µÄÎ»ÖÃ
 				break;
 		}
-		for (v_j = 0; v_j < vertaxNum; v_j++)
+		for (v_j = 0; v_j < vertexNum; v_j++)
 		{
-			if (edge[i][1] == vertax[v_j])
+			if (edge[i][1] == vertex[v_j])
 				break;
 		}
 		m_matrix[v_i][v_j] = 1;//½«ÕÒµ½±ß¶ÔÓ¦µÄÁÚ½Ó¾ØÕóÔªËØ¸³ÖµÎª1
@@ -88,15 +88,15 @@ MatrixUDG::MatrixUDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum)
 void MatrixUDG::PrintMatrixUDG()
 {
 	cout << "  ";
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
-		cout << m_vertax[i] << " ";
+		cout << m_vertex[i] << " ";
 	}
 	cout << endl;
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
-		cout << m_vertax[i] << " ";
-		for (int j = 0; j < m_vertaxNum; j++)
+		cout << m_vertex[i] << " ";
+		for (int j = 0; j < m_vertexNum; j++)
 		{
 			cout << m_matrix[i][j] << " ";
 		}
@@ -110,7 +110,7 @@ void MatrixUDG::DFS()//Íâ²¿½Ó¿ÚÉî¶È±éÀúdeep first search
 	int visited[MAX];
 	//³õÊ¼»¯ËùÓĞ¶¥µã·ÃÎÊÎª0
 	memset(visited, 0, sizeof(int)*MAX);
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
 		if (visited[i] == 0)
 			DFS(i,visited);
@@ -121,8 +121,8 @@ void MatrixUDG::DFS_opt()
 {
 	cout << __func__ << endl;
 	//Ê×ÏÈÀûÓÃÒ»¸ö¸¨ÖúÊı×éÀ´¼ÇÂ¼Õâ¸ö¶¥µãÊÇ²»ÊÇÒÑ¾­·ÃÎÊ¹ı
-	vector<bool> visited(m_vertaxNum);//ÕâÑù³õÊ¼»¯Îª0£¬¼´false
-	for (int i = 0; i < m_vertaxNum; i++)
+	vector<bool> visited(m_vertexNum);//ÕâÑù³õÊ¼»¯Îª0£¬¼´false
+	for (int i = 0; i < m_vertexNum; i++)
 	{
 		if (visited[i] == false)
 			DFS_opt(i, visited);
@@ -133,16 +133,16 @@ void MatrixUDG::DFS_Non_recursive()//·Çµİ¹éË¼Ïë£ºÀûÓÃ¸¨ÖúÕ»À´Íê³ÉÉÏÒ»¸öÁÚ½Ó¸¸½Úµ
 {
 	cout << __func__ << endl;
 	//Ê×ÏÈÀûÓÃÒ»¸ö¸¨ÖúÊı×éÀ´¼ÇÂ¼Õâ¸ö¶¥µãÊÇ²»ÊÇÒÑ¾­·ÃÎÊ¹ı
-	vector<bool> visited(m_vertaxNum);//ÕâÑù³õÊ¼»¯Îª0£¬¼´false
+	vector<bool> visited(m_vertexNum);//ÕâÑù³õÊ¼»¯Îª0£¬¼´false
 	stack<int> s;//´´½¨Ò»¸ö¶ÑÕ»¼ÇÂ¼¶¥µãµÄÏÂ±ê
 	int temp;
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
 		if (visited[i] == false)//Èç¹ûÕâ¸ö¶¥µãÃ»ÓĞ±»·ÃÎÊ¹ı
 		{
 			temp = i;//¼ÇÂ¼µ±Ç°±éÀúµ½µÄÕâ¸ö¶¥µãµÄÎ»ÖÃ
 			s.push(i);//¾Í°ÑÕâ¸ö¶¥µãµÄÏÂ±êÑ¹ÈëÕ»
-			cout << m_vertax[i] << " ";//°ÑÕâ¸ö¶¥µãÊä³ö³öÀ´
+			cout << m_vertex[i] << " ";//°ÑÕâ¸ö¶¥µãÊä³ö³öÀ´
 			visited[i] = true;//°ÑÕâ¸ö¶¥µãÉèÖÃÎªÒÑ¾­·ÃÎÊ¹ı
 			//½Ó×ÅÕÒÕâ¸ö¶¥µãµÄÁÚ½Óµã
 			for (int j = 0; ; j++)//ÉèÖÃÒ»¸öÎŞÏŞÑ­»·¼ÆÊı
@@ -151,11 +151,11 @@ void MatrixUDG::DFS_Non_recursive()//·Çµİ¹éË¼Ïë£ºÀûÓÃ¸¨ÖúÕ»À´Íê³ÉÉÏÒ»¸öÁÚ½Ó¸¸½Úµ
 				{
 					visited[j] = true;
 					s.push(j);//°ÑÕâ¸öÁÚ½Ó¶¥µãµÄÏÂ±êÑ¹ÈëÕ»
-					cout << m_vertax[j] << " ";
+					cout << m_vertex[j] << " ";
 					i = j;//ÁÚ½Óµã×÷ÎªÆğµã
 					j = 0;//±íÊ¾ÖØĞÂ¿ªÊ¼¼ÆÊı
 				}
-				if (j == m_vertaxNum)//iÃ»ÓĞÁÚ½Óµã
+				if (j == m_vertexNum)//iÃ»ÓĞÁÚ½Óµã
 				{
 					if (temp == s.top())//Èç¹ûÕ»¶¥µÈÓÚÒ»¿ªÊ¼±éÀúµÄ½ÚµãÏÂ±êtemp£¬ËµÃ÷ÔÚËüµÄËùÓĞÁÚ½ÓÁªÍ¨¶¥µã¶¼ÒÑ¾­±»µ¯¹âÁË£¬ÍË³öÑ­»·
 						break;
@@ -179,25 +179,25 @@ void MatrixUDG::BFS()
 	cout << __func__ << endl;
 	int visited[MAX];
 	memset(visited, 0, sizeof(int)*MAX);
-	for (i = 0; i < m_vertaxNum; i++)//Íâ²ãµÄ±éÀúÊÇ±ØĞëÒªµÄ£¬±£Ö¤±éÀúµ½Ã¿¸ö¶¥µãÒòÎªÊ÷±ØĞëÓĞÁ´½Ó£¬¶øÍ¼¿ÉÒÔÓĞ¹Âµ¥µã£¬±ÈÈçA¿ÉÒÔ²»Á¬½ÓB,C
+	for (i = 0; i < m_vertexNum; i++)//Íâ²ãµÄ±éÀúÊÇ±ØĞëÒªµÄ£¬±£Ö¤±éÀúµ½Ã¿¸ö¶¥µãÒòÎªÊ÷±ØĞëÓĞÁ´½Ó£¬¶øÍ¼¿ÉÒÔÓĞ¹Âµ¥µã£¬±ÈÈçA¿ÉÒÔ²»Á¬½ÓB,C
 	{
-		//°Ñm_vertaxNum¸ö¶¥µãÒÀ´ÎÑ¹Èë
+		//°Ñm_vertexNum¸ö¶¥µãÒÀ´ÎÑ¹Èë
 		if (visited[i] == 0)//Èç¹ûÃ»ÓĞ±éÀú¹ıÕâ¸ö¶¥µã£¬¾ÍÑ¹Èë
 		{
 			visited[i] = 1;
-			cout << m_vertax[i] << " ";
+			cout << m_vertex[i] << " ";
 			que.push(i);//½«¶¥µãÏÂ±êÑ¹Èë¶ÓÁĞ
 		}
 		while (!que.empty())//Ã¿Ò»´ÎÑ­»·¶¼°ÑËùÓĞ¸ùi¶¥µãÏàÁÚµÄ¶¥µãÑ¹Èë²¢µ¯³ö´òÓ¡
 		{
 			i_pop = que.front();
 			que.pop();
-			for (j = firstVertex(i_pop); j >= 0; j = nextVertax(i_pop, j))//ÒÀ´Î±éÀú¶¥µãµÄ¸÷¸öÁÚ½Ó¶¥µã
+			for (j = firstVertex(i_pop); j >= 0; j = nextVertex(i_pop, j))//ÒÀ´Î±éÀú¶¥µãµÄ¸÷¸öÁÚ½Ó¶¥µã
 			{
 				if (visited[j] == 0)
 				{
 					visited[j] = 1;
-					cout << m_vertax[j] << " ";//´òÓ¡Õâ¸ö½Úµã
+					cout << m_vertex[j] << " ";//´òÓ¡Õâ¸ö½Úµã
 					que.push(j);//Ñ¹Èë
 				}
 			}
@@ -210,25 +210,25 @@ void MatrixUDG::BFS_opt()
 {
 	cout << __func__ << endl;
 	queue<int> q;//ÀûÓÃ¶ÓÁĞ´¢´æÏÂ±ê
-	vector<bool> visited(m_vertaxNum);
-	for (int i = 0; i < m_vertaxNum; i++)
+	vector<bool> visited(m_vertexNum);
+	for (int i = 0; i < m_vertexNum; i++)
 	{
 		if (visited[i] == false)
 		{
 			visited[i] = true;
-			cout << m_vertax[i]<< " ";
+			cout << m_vertex[i]<< " ";
 			q.push(i);//°Ñ¸Ä¶¥µãµÄÏÂ±íÑ¹Èë¶ÓÁĞ
 			while (!q.empty())
 			{
 				int start = q.front();//°Ñ¶ÓÁĞÍ·×÷ÎªÆğµã¶¥µã¼ÌĞøÑ°ÕÒ
 				q.pop();
-				for (int j = 0; j < m_vertaxNum; j++)
+				for (int j = 0; j < m_vertexNum; j++)
 				{
-					if (m_matrix[i][j] == 1 && visited[j] == false)
+					if (m_matrix[start][j] == 1 && visited[j] == false)
 					{
 						q.push(j);//Ñ¹ÈëÁÚ½Óµã
 						visited[j] = true;
-						cout << m_vertax[j] << " ";//Êä³öÕâ¸öÁÚ½Óµã
+						cout << m_vertex[j] << " ";//Êä³öÕâ¸öÁÚ½Óµã
 					}
 				}
 			}
@@ -237,28 +237,28 @@ void MatrixUDG::BFS_opt()
 	cout << endl;
 }
 
-MatrixDG::MatrixDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum)
+MatrixDG::MatrixDG(char vertex[], char edge[][2], int vertexNum, int edgeNum)
 {
-	memset(m_vertax, 0, sizeof(m_vertax));
+	memset(m_vertex, 0, sizeof(m_vertex));
 	memset(m_matrix, 0, sizeof(m_matrix));//½«ÁÚ½Ó¾ØÕó³õÊ¼»¯Îª0
 										  //¶¥µãÊıºÍ±ßÊı¸³Öµ
-	m_vertaxNum = vertaxNum;
+	m_vertexNum = vertexNum;
 	m_edgeNum = edgeNum;
-	//ÓÃvertax[]³õÊ¼»¯ÀàÖĞµÄ¶¥µãÊı×é
-	//memcpy(m_vertax, vertax, sizeof(vertax));//×¢ÒâÕâÀïÃæµÄvertaxÒÑ¾­ÊÇÒ»¸öÖ¸ÕëÁË¶ø²»ÊÇÒ»¸öÊı×éËùÒÔÖ±½Ósizeof(vertax)ÊÇÒ»¸öÖ¸Õë4¸ö×Ö½Ú
-	memcpy(m_vertax, vertax, sizeof(char)*vertaxNum);
+	//ÓÃvertex[]³õÊ¼»¯ÀàÖĞµÄ¶¥µãÊı×é
+	//memcpy(m_vertex, vertex, sizeof(vertex));//×¢ÒâÕâÀïÃæµÄvertexÒÑ¾­ÊÇÒ»¸öÖ¸ÕëÁË¶ø²»ÊÇÒ»¸öÊı×éËùÒÔÖ±½Ósizeof(vertex)ÊÇÒ»¸öÖ¸Õë4¸ö×Ö½Ú
+	memcpy(m_vertex, vertex, sizeof(char)*vertexNum);
 	//Í¨¹ıÁÚ½Ó¾ØÕó±íÊ¾±ß
 	int v_i, v_j;//±íÊ¾ÁÚ½Ó¾ØÕóµÄºá×ø±êºÍ×İ×ø±ê£¬Ò²¶¼ÊÇ¶¥µãÊı×éµÄÏÂ±ê
 	for (int i = 0; i < edgeNum; i++)//±éÀú±ßµÄĞÅÏ¢
 	{
-		for (v_i = 0; v_i < vertaxNum; v_i++)//Ñ°ÕÒ¶¥µãÊı×éÖĞÓëµÚi±ßµÄµÚ0¸öÔªËØÏàÍ¬µÄÖµµÄÎ»ÖÃ
+		for (v_i = 0; v_i < vertexNum; v_i++)//Ñ°ÕÒ¶¥µãÊı×éÖĞÓëµÚi±ßµÄµÚ0¸öÔªËØÏàÍ¬µÄÖµµÄÎ»ÖÃ
 		{
-			if (edge[i][0] == vertax[v_i])//ÕÒ±ÈÈç{'A','B'}µÄÎ»ÖÃ
+			if (edge[i][0] == vertex[v_i])//ÕÒ±ÈÈç{'A','B'}µÄÎ»ÖÃ
 				break;
 		}
-		for (v_j = 0; v_j < vertaxNum; v_j++)
+		for (v_j = 0; v_j < vertexNum; v_j++)
 		{
-			if (edge[i][1] == vertax[v_j])
+			if (edge[i][1] == vertex[v_j])
 				break;
 		}
 		m_matrix[v_i][v_j] = 1;//½«ÕÒµ½±ß¶ÔÓ¦µÄÁÚ½Ó¾ØÕóÔªËØ¸³ÖµÎª1£¬ÓĞÏòÍ¼²»ÊÇ¶Ô³ÆµÄ
@@ -269,15 +269,15 @@ MatrixDG::MatrixDG(char vertax[], char edge[][2], int vertaxNum, int edgeNum)
 void MatrixDG::PrintMatrixDG()
 {
 	cout << "  ";
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
-		cout << m_vertax[i] << " ";
+		cout << m_vertex[i] << " ";
 	}
 	cout << endl;
-	for (int i = 0; i < m_vertaxNum; i++)
+	for (int i = 0; i < m_vertexNum; i++)
 	{
-		cout << m_vertax[i] << " ";
-		for (int j = 0; j < m_vertaxNum; j++)
+		cout << m_vertex[i] << " ";
+		for (int j = 0; j < m_vertexNum; j++)
 		{
 			cout << m_matrix[i][j] << " ";
 		}
