@@ -65,4 +65,5 @@ int main()
 		minheap.remove(temp);
 	}
 	cout << endl;
+	//优化好的堆排序的时间复杂度和快速排序是一样的都是O(nlong2n)
 }
