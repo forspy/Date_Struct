@@ -302,3 +302,4 @@ void SortTime(int * arr, int left, int right, funName1 func)
 	end = clock();
 	cout << (end - start) << endl;
 }
+//基数排序思想：堆一组数的各个位进行排序 
