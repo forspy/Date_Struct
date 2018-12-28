@@ -84,10 +84,26 @@ Maze::Maze(int row, int col):maze_row(row),maze_col(col)
 void Maze::ShowMaze()
 {
 	system("cls");//每次画之前清屏
+	//查看windowsAPI函数后发现需要一个HANDLE类型的句柄
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);//获取控制台的输出句柄
 	for (int i = 0; i < maze_row; i++)
 	{
 		for (int j = 0; j < maze_col; j++)
 		{
+			//调用WindowsAPI给迷宫上色（windows.h）
+			switch (m_space[i][j])
+			{
+			case M_wall:
+				//设置控制台文本属性
+				SetConsoleTextAttribute(handle, FOREGROUND_INTENSITY|FOREGROUND_BLUE | FOREGROUND_GREEN);//1.控制台的内存标识(句柄) 2.颜色（前景色，背景色）
+				break;
+			case M_mouse:
+				SetConsoleTextAttribute(handle,  FOREGROUND_GREEN);
+				break;
+			case M_impass:
+				SetConsoleTextAttribute(handle, FOREGROUND_RED);
+				break;
+			}
 			char c=(m_space[i][j] == M_mouse )? mouseDir[m_pMouse->m_dir] : m_space[i][j];//如果是老鼠就画出老鼠的朝向，否则画出空间该点元素
 			cout << c << " ";//打印一个字符空一格
 		}
